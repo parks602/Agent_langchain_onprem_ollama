@@ -1,6 +1,6 @@
 # Agent_langchain_onprem_ollama
 
-**onprem\_AI\_agent**는 게임 고객의 다양한 문의를 자동으로 분석하고, 적절한 함수를 호출하여 신속하고 정확한 응답을 제공하는 온프레미스 AI 에이전트입니다.
+**Agent_langchain_onprem_ollama**는 게임 고객의 다양한 문의를 자동으로 분석하고, 적절한 함수를 호출하여 신속하고 정확한 응답을 제공하는 온프레미스 AI 에이전트입니다.
 이 프로젝트는 LangChain, Ollama, LangSmith와 같은 최신 LLM 오케스트레이션 도구를 활용하여, 로컬 환경에서 빠르고 안정적인 고객 지원 시스템을 구현하는 것을 목표로 합니다.
 
 ***
