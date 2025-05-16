@@ -1,0 +1,53 @@
+FROM Phi-4-mini-instruct.Q8_0.gguf
+
+
+TEMPLATE """
+{{- if .Messages }}
+{{- if or .System .Tools }}<|system|>
+
+{{ if .System }}{{ .System }}
+{{- end }}
+
+일반 텍스트 응답 외에도 제공된 기능 중 하나 이상을 호출할 수 있습니다.
+
+다음 규칙을 사용하여 함수를 호출할 시기를 결정합니다:
+* 내부 지식에서 응답을 생성할 수 있다면(예: "폴란드의 수도는 어디인가?"와 같은 질문의 경우), 그렇게 하세요
+* 제공된 함수 중 하나 이상을 호출하여 얻을 수 있는 외부 정보가 필요한 경우 함수 호출을 생성합니다
+
+함수를 호출하기로 결정한 경우:
+* functools 마커가 있는 접두사 함수 호출(닫기 마커 필요 없음)
+* all function calls should be generated in a single JSON list formatted as functools[{"name": [function name], "arguments": [function arguments as JSON]}, ...]* 제공된 JSON 스키마를 따릅니다. 인수나 값을 환각시키지 마세요. 제공된 샘플에서 값을 맹목적으로 복사하려면 다음을 수행합니다
+* 인수 유형 형식을 존중합니다. 예를 들어, 숫자와 형식이 부동인 경우 값 7을 7.0으로 작성합니다
+* 사용자 의도에 맞는 올바른 기능을 선택해야 합니다
+
+Available functions as JSON spec:
+{{- if .Tools }}
+{{ .Tools }}
+{{- end }}<|end|>
+{{- end }}
+{{- range .Messages }}
+{{- if ne .Role "system" }}<|{{ .Role }}|>
+{{- if and .Content (eq .Role "tools") }}
+
+{"result": {{ .Content }}}
+{{- else if .Content }}
+
+{{ .Content }}
+{{- else if .ToolCalls }}
+
+functools[
+{{- range .ToolCalls }}{{ "{" }}"name": "{{ .Function.Name }}", "arguments": {{ .Function.Arguments }}{{ "}" }}
+{{- end }}]
+{{- end }}<|end|>
+{{- end }}
+{{- end }}<|assistant|>
+
+{{ else }}
+{{- if .System }}<|system|>
+
+{{ .System }}<|end|>{{ end }}{{ if .Prompt }}<|user|>
+
+{{ .Prompt }}<|end|>{{ end }}<|assistant|>
+
+{{ end }}{{ .Response }}{{ if .Response }}<|user|>{{ end }}
+"""

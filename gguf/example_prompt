@@ -1,0 +1,29 @@
+[
+  {
+    "role": "system",
+    "content": "You are a helpful support assistant."
+  },
+  {
+    "role": "user",
+    "content": "3월 15일에 접속했더니 제니가 사라졌습니다."
+  },
+  {
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "name": "check_gold_transaction",
+          "arguments": "{\"account_id\": \"user001\", \"date\": \"2024-03-15\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tools",
+    "content": "{\"result\": \"500만 제니가 특정 거래로 인해 빠졌습니다.\"}"
+  },
+  {
+    "role": "assistant",
+    "content": "확인 결과 3월 15일에 거래로 인해 500만 제니가 빠진 것이 확인되었습니다."
+  }
+]
