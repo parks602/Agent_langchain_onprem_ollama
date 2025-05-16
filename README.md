@@ -105,6 +105,14 @@ LangChain은 LLM 에이전트의 구성과 도구 체계를 관리하는 데 사
 
 ***
 
+## 실제 실행 예시
+
+1. ![LangSmith 캡처 1개 문의 처리 전체 과정](img/all_step.png)
+2. ![고객 문의 유형 분류 결과](img/step1_explore_subject.png)
+3. ![고객 문의 유형 분류에 따른 Agent Function 선택](img/step2_select_agent_function.png)
+4. ![Function Calling을 통한 Agent 함수 실행](img/step3_result_function_calling.png)
+5. ![전체 결과 기반 고객 문의 답변 초안 생성](img/step4_final_result.png)
+
 ## 참고 자료
 
 * [unsloth/Phi-4-mini-instruct-GGUF](https://huggingface.co/unsloth/Phi-4-mini-instruct-GGUF)
