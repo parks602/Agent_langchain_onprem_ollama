@@ -87,6 +87,7 @@ def run_generator(data):
     llm = model_load()
     
     open_result = open_chain_run(llm, data)
+    print(open_result)
     if len(open_result) > 0:
         for job in open_result:
             tool_call = function_chain_run(llm, data, job)
@@ -95,7 +96,8 @@ def run_generator(data):
             job['function_result'] =function_result
     
     info_prompt = summary_prompt(data, open_result)
+    print(info_prompt)
     final_result = final_chain_run(llm, info_prompt)
     
     print(final_result)
-    return function_result
+    return final_result
